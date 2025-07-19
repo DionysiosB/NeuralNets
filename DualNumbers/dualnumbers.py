@@ -54,7 +54,7 @@ class Dual:
         return f"Dual({self.real}, {self.dual})"
 
     def __bool__(self):
-        return self.real > 0
+        return self.real > 0 or self.dual > 0
 
     def __lt__(self, other):
         raise NotImplementedError("Comparison between Dual numbers is not defined")
