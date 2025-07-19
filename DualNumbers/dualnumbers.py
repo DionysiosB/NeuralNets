@@ -33,6 +33,14 @@ class Dual:
             return Dual(self.real / other.real, (other.real * self.dual - self.real * other.dual) / (other.real * other.real))
         else: raise NotImplementedError("Can only multiply Duals with other Duals or Numbers")
 
+    def __pow__(self, other):
+        if not isinstance(other, (float, int)):
+            raise NotImplementedError("Can only raise Duals to a number (int or float) power")
+        return Dual( (self.real)**p, other * ((self.real)**(p - 1)) * self.dual)
+    
+    def __neg__(self):
+        return Dual(-self.real, -self.dual)
+
     __iadd__ = __add__
     __radd__ = __add__
     __isub__ = __sub__
@@ -41,9 +49,6 @@ class Dual:
     __rmul__ = __mul__
     __itruediv__ = __truediv__
     __rtruediv__ = __truediv__
-
-    def __neg__(self):
-        return Dual(-self.real, -self.dual)
 
     def __str__(self):
         return f"Dual({self.real}, {self.dual})"
