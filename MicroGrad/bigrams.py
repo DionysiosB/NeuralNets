@@ -22,18 +22,14 @@ for p in range(1, len(fs)):
     mat[prev][next] += 1
 
 
+# Show the probabilities
+plt.imshow(mat)
+plt.show()
+
 # Normalize to probabilities
 for row in range(B + 1):
     row_count = np.sum(mat[row])
     for col in range(B + 1): mat[row][col] /= row_count
-    #for col in range(B + 1): print(f"{row}\t{col}\t{mat[row][col]}")
-
-
-# Show the probabilities
-plt.imshow(mat, cmap='viridis', interpolation='nearest')
-plt.savefig('text.png')
-plt.show()
-
 
 for _ in range(N):
     asciilist = list()
