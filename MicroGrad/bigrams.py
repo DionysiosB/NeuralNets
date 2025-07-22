@@ -68,3 +68,53 @@ print(f"\n\nNegative Log Likelihood:{nll}\n")
 
 print("\nPredicted Words:\n")
 for x in output: print(x) 
+
+
+
+
+#### NN model ####
+
+import torch
+import torch.nn.functional as F
+
+num_epochs = 10
+
+# Construct the input/output matrices
+sv = [B if c == sep else (ord(c) - ord('a')) for c in fs]
+xc = F.one_hot(torch.tensor(sv[:-1]), num_classes=B + 1).float()
+ys = torch.tensor(sv[1:])
+
+W = torch.randn((B + 1, B + 1), requires_grad=True)
+
+for epoch in range(num_epochs):
+    logits = xc @ W
+    counts = logits.exp()
+    probs = counts / counts.sum(1, keepdims=True)
+    loss = -probs[torch.arange(len(xc)), ys].log().mean() + 0.1 * torch.mean(W**2)
+    print(f"Epoch:{epoch}, Loss:{loss.item()}")
+    loss.backward()
+    W.data += -50.0 * W.grad
+    W.grad = None
+
+
+
+## Create some examples
+
+output = [''] * N
+for p in range(N):
+    asciilist = list()
+    while True:
+        prev = asciilist[-1] if len(asciilist) else B
+        probs = W[prev, :].exp()
+        probs = probs / probs.sum()
+        next = torch.multinomial(probs, num_samples=1, replacement=True).item()
+        nll -= np.log(mat[prev][next])
+        cnt += 1
+        if next == B: break
+        asciilist.append(next)
+    output[p] = ''.join(map(chr, [int(ord('a') + x) for x in asciilist]))
+
+
+print(f"\n\nAverage NLL:{nll/cnt}\n\n")
+for x in output: print(x)
+
