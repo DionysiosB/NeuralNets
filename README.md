@@ -1,2 +1,2 @@
 # NeuralNets
-Micrograd - Follows closely Andrej Karpathy's micrograd with slight modifications
+Various snippets of code related to ML/AI
