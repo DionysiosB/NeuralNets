@@ -108,4 +108,4 @@ from sklearn.model_selection import cross_val_score
 #rmses = cross_val_score(linreg, Xm, y, cv=10)
 #rmses = cross_val_score(treereg, Xm, y, cv=10)
 rmses = cross_val_score(forestreg, Xm, y, cv=10)
-print(rmses
+print(rmses)
