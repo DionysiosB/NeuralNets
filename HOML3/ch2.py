@@ -11,6 +11,8 @@ df.describe()
 df.hist(bins=50)
 print(df.columns)
 
+df.iloc[:5][["total_rooms", "total_bedrooms"]] ##Get a subset of the dataframe
+
 X = df.drop(columns=["median_house_value"])
 y = df[["median_house_value"]]
 
