@@ -67,7 +67,7 @@ model = TorchClassifier(num_features, num_hidden, num_types)
 model.fit(Xtrain, ytrain)
 
 
-Xt = torch.tensor(Xtest, dtype=torch.float32).reshape(-1, 4)
+Xt = torch.tensor(Xtest, dtype=torch.float32).reshape(-1, num_features)
 yt = torch.tensor(ytest, dtype=torch.long).reshape(-1)
 yth = model(Xt)
 testloss = nn.CrossEntropyLoss()
