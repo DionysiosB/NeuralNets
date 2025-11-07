@@ -44,6 +44,7 @@ y = torch.tensor(yy, dtype=torch.float).view(-1, 1)
 
 model = TorchRegressor(1, 1)
 model.fit(X, y, num_epochs=1000, learning_rate=1e-2)
+print(f"Estimated Parameters: Slope:{model.layer.weight} Bias:{model.layer.bias}") 
 yhat = model.forward(X).detach().numpy()
 plt.scatter(xx, yy)
 plt.scatter(xx, yhat)
