@@ -52,7 +52,7 @@ def attention_head(x, Wq, Wk, Wv, Wo):
     K = matmul(x, Wk)   # [T x D]
     V = matmul(x, Wv)   # [T x D]
 
-    scores = [[0.0 for _ in range(T)] for _ in range(T)]    # [T x T]
+    scores = [[-1e9 for _ in range(T)] for _ in range(T)]    # [T x T]
 
     for row in range(T):
         for col in range(T):
